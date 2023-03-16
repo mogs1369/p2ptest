@@ -78,8 +78,6 @@ async fn main() {
         println!("dialing to: {}\n**********************************", addr);
     }
 
-    // let mut peerstable = Vec::new();
-
     loop {
         match swarm.select_next_some().await {
             SwarmEvent::NewListenAddr { address, .. } => {
@@ -93,7 +91,6 @@ async fn main() {
                     for addr in info.listen_addrs {
                         swarm.behaviour_mut().kademlia.add_address(&peer_id, addr);
                     }
-                    // println!("{}=>received\n**********************************", peer_id);
                     swarm.behaviour_mut().kademlia.bootstrap().unwrap();
                     swarm
                         .behaviour_mut()
