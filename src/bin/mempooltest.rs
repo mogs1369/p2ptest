@@ -1,4 +1,4 @@
-use sha2::{Sha256, Digest};
+use sha2::{Digest, Sha256};
 
 #[derive(Debug)]
 #[allow(dead_code)]
@@ -8,28 +8,30 @@ struct Tx {
     from: String,
     to: String,
     amount: f32,
-    apply: bool
+    apply: bool,
 }
 
 fn main() {
     let mut mempool: Vec<Tx> = Vec::new();
-
-    let mut new_tx = Tx {
-        tx_hash: String::new(),
-        fee: 0.5,
-        from: "dfghghsretgegdf34565fgws523546".to_string(),
-        to: "dfjkhsgrioeughroew392876jhergj".to_string(),
-        amount: 10.0,
-        apply: false
-    };
-
-    let mut hasher  = Sha256::new();
-    hasher.update(format!("{:#?}", new_tx));
-    let hash_tx = hasher.finalize();
-    let final_tx_hash = format!("{:X}", hash_tx);
-
-    new_tx.tx_hash.push_str(&final_tx_hash);
-    mempool.push(new_tx);
+    let tx1 = new_tx("mohammad".to_string(), "ali".to_string(), 0.5, 10.0, false);
+    mempool.push(tx1);
 
     println!("{:#?}", mempool);
+}
+
+fn new_tx(from: String, to: String, fee: f32, amount: f32, apply: bool) -> Tx {
+    let mut newtx = Tx {
+        tx_hash: String::new(),
+        fee,
+        from,
+        to,
+        amount,
+        apply,
+    };
+    let mut hasher = Sha256::new();
+    hasher.update(format!("{:#?}", newtx));
+    let hasherfinaliaze = hasher.finalize();
+    let hash = format!("{:X}", hasherfinaliaze);
+    newtx.tx_hash.push_str(&hash);
+    newtx
 }
