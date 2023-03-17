@@ -1953,6 +1953,7 @@ name = "p2ptest"
 version = "0.1.0"
 dependencies = [
  "libp2p",
+ "sha2 0.10.6",
  "tokio",
 ]
 
