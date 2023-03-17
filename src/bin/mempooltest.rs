@@ -1,12 +1,14 @@
 use sha2::{Sha256, Digest};
 
 #[derive(Debug)]
+#[allow(dead_code)]
 struct Tx {
     tx_hash: String,
     fee: f32,
     from: String,
     to: String,
-    amount: f32
+    amount: f32,
+    apply: bool
 }
 
 fn main() {
@@ -17,7 +19,8 @@ fn main() {
         fee: 0.5,
         from: "dfghghsretgegdf34565fgws523546".to_string(),
         to: "dfjkhsgrioeughroew392876jhergj".to_string(),
-        amount: 10.0
+        amount: 10.0,
+        apply: false
     };
 
     let mut hasher  = Sha256::new();
